@@ -1,0 +1,3 @@
+@model Hotel.Web.Models.Habitacion
+@{ ViewData["Title"] = "Desactivar habitación"; }
+<div class="row justify-content-center"><div class="col-lg-6"><h1 class="page-title">Desactivar habitación</h1><div class="alert alert-warning">La habitación no se eliminará físicamente; quedará marcada como inactiva.</div><div class="card border-0 shadow-sm"><div class="card-body p-4"><h2 class="h4">Habitación @Model.Numero</h2><p class="text-secondary">@Model.IdTipoHabitacionNavigation.Nombre · Piso @Model.Piso</p><form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.IdHabitacion" /><button class="btn btn-danger" type="submit">Confirmar desactivación</button><a class="btn btn-link" asp-action="Index">Cancelar</a></form></div></div></div></div>

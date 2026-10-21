@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero-hotel rounded-4 p-5 mb-4 text-white">
+    <div class="col-lg-7">
+        <p class="text-uppercase small fw-semibold mb-2">Gestión hotelera</p>
+        <h1 class="display-5 fw-bold">Reservas claras, estadías sin complicaciones</h1>
+        <p class="lead">Administra habitaciones, consulta disponibilidad y registra reservas desde un solo lugar.</p>
+        <a class="btn btn-light btn-lg me-2" asp-controller="Reservas" asp-action="Disponibles">Consultar disponibilidad</a>
+        <a class="btn btn-outline-light btn-lg" asp-controller="Habitaciones" asp-action="Index">Ver habitaciones</a>
+    </div>
+</section>
+
+<div class="row g-4">
+    <div class="col-md-4"><div class="card h-100 border-0 shadow-sm"><div class="card-body p-4"><h2 class="h5">Habitaciones</h2><p class="text-secondary">Consulta, registra, edita y desactiva habitaciones.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100 border-0 shadow-sm"><div class="card-body p-4"><h2 class="h5">Disponibilidad</h2><p class="text-secondary">Encuentra habitaciones libres y conoce el total estimado.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100 border-0 shadow-sm"><div class="card-body p-4"><h2 class="h5">Reservas</h2><p class="text-secondary">Registra solicitudes y cancela reservas vigentes.</p></div></div></div>
+</div>

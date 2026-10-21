@@ -1,0 +1,14 @@
+@model Hotel.Web.Models.Reserva
+@{ ViewData["Title"] = "Nueva reserva"; }
+<div class="row justify-content-center"><div class="col-lg-7">
+    <h1 class="page-title">Nueva reserva</h1><p class="text-secondary">La reserva se registrará con estado Pendiente.</p>
+    <div class="card border-0 shadow-sm"><div class="card-body p-4"><form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="mb-3"><label asp-for="IdHuesped" class="form-label">Huésped</label><select asp-for="IdHuesped" class="form-select" asp-items="ViewBag.IdHuesped"><option value="">Seleccione un huésped</option></select><span asp-validation-for="IdHuesped" class="text-danger"></span></div>
+        <div class="mb-3"><label asp-for="IdHabitacion" class="form-label">Habitación</label><select asp-for="IdHabitacion" class="form-select" asp-items="ViewBag.IdHabitacion"><option value="">Seleccione una habitación</option></select><span asp-validation-for="IdHabitacion" class="text-danger"></span></div>
+        <div class="row"><div class="col-md-6 mb-3"><label asp-for="FechaIngreso" class="form-label">Fecha de ingreso</label><input asp-for="FechaIngreso" type="date" class="form-control" /><span asp-validation-for="FechaIngreso" class="text-danger"></span></div><div class="col-md-6 mb-3"><label asp-for="FechaSalida" class="form-label">Fecha de salida</label><input asp-for="FechaSalida" type="date" class="form-control" /><span asp-validation-for="FechaSalida" class="text-danger"></span></div></div>
+        <div class="mb-4"><label asp-for="Observaciones" class="form-label">Observaciones</label><textarea asp-for="Observaciones" class="form-control" rows="3" maxlength="200" placeholder="Opcional, máximo 200 caracteres"></textarea><div class="form-text">Propiedad incorporada después de regenerar el modelo Database First.</div><span asp-validation-for="Observaciones" class="text-danger"></span></div>
+        <button class="btn btn-primary" type="submit">Registrar reserva</button><a class="btn btn-link" asp-action="Index">Volver</a>
+    </form></div></div>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

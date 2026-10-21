@@ -1,0 +1,22 @@
+@model IEnumerable<Hotel.Web.ViewModels.HabitacionDisponibleViewModel>
+@{ ViewData["Title"] = "Disponibilidad"; }
+
+<div class="mb-4"><h1 class="page-title mb-1">Consultar disponibilidad</h1><p class="text-secondary">Busca habitaciones libres para el rango de fechas indicado.</p></div>
+<form method="get" class="card border-0 shadow-sm mb-4"><div class="card-body row g-3 align-items-end">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="col-md-4"><label for="ingreso" class="form-label">Fecha de ingreso</label><input type="date" class="form-control" id="ingreso" name="ingreso" value="@ViewBag.Ingreso" required /></div>
+    <div class="col-md-4"><label for="salida" class="form-label">Fecha de salida</label><input type="date" class="form-control" id="salida" name="salida" value="@ViewBag.Salida" required /></div>
+    <div class="col-md-4"><button class="btn btn-primary w-100" type="submit">Buscar habitaciones</button></div>
+</div></form>
+
+@if (Context.Request.Query.ContainsKey("ingreso") && ViewData.ModelState.IsValid)
+{
+    <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h4 mb-0">@Model.Count() habitación(es) disponible(s)</h2></div>
+    <div class="row g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-xl-4"><div class="card h-100 border-0 shadow-sm"><div class="card-body p-4"><div class="d-flex justify-content-between"><h3 class="h4">Habitación @item.Numero</h3><span class="badge text-bg-light">Piso @item.Piso</span></div><p class="text-secondary">@item.Tipo · @item.Capacidad persona(s)</p><dl class="row small"><dt class="col-7">Precio por noche</dt><dd class="col-5 text-end">S/ @item.PrecioNoche.ToString("N2")</dd><dt class="col-7">Noches</dt><dd class="col-5 text-end">@item.Noches</dd><dt class="col-7">Total estimado</dt><dd class="col-5 text-end fw-bold">S/ @item.TotalEstimado.ToString("N2")</dd></dl><a class="btn btn-primary w-100" asp-action="Create" asp-route-idHabitacion="@item.IdHabitacion" asp-route-ingreso="@ViewBag.Ingreso" asp-route-salida="@ViewBag.Salida">Reservar</a></div></div></div>
+    }
+    </div>
+    @if (!Model.Any()) { <div class="alert alert-info">No hay habitaciones disponibles para las fechas seleccionadas.</div> }
+}

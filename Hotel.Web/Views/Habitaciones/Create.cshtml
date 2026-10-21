@@ -1,0 +1,4 @@
+@model Hotel.Web.Models.Habitacion
+@{ ViewData["Title"] = "Nueva habitación"; }
+<div class="row justify-content-center"><div class="col-lg-6"><h1 class="page-title">Nueva habitación</h1><p class="text-secondary">Registra una habitación activa.</p><div class="card border-0 shadow-sm"><div class="card-body p-4"><form asp-action="Create" method="post"><partial name="_Form" model="Model" /><button class="btn btn-primary" type="submit">Guardar</button><a class="btn btn-link" asp-action="Index">Volver</a></form></div></div></div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

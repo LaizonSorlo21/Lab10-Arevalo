@@ -1,0 +1,18 @@
+@model IEnumerable<Hotel.Web.Models.Reserva>
+@{ ViewData["Title"] = "Reservas"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h1 class="page-title mb-1">Reservas</h1><p class="text-secondary mb-0">Historial con importes calculados por estadía.</p></div><a class="btn btn-primary" asp-action="Create">Nueva reserva</a></div>
+<div class="card border-0 shadow-sm overflow-hidden"><div class="table-responsive"><table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Huésped</th><th>Habitación</th><th>Ingreso</th><th>Salida</th><th>Estado</th><th>Total</th><th>Observaciones</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        var noches = item.FechaSalida.DayNumber - item.FechaIngreso.DayNumber;
+        var total = noches * item.IdHabitacionNavigation.IdTipoHabitacionNavigation.PrecioNoche;
+        var claseEstado = item.Estado switch { "Confirmada" => "text-bg-success", "Pendiente" => "text-bg-warning", "Cancelada" => "text-bg-danger", _ => "text-bg-secondary" };
+        <tr><td><span class="fw-semibold">@item.IdHuespedNavigation.Apellidos</span><br /><small class="text-secondary">@item.IdHuespedNavigation.Nombres</small></td><td>@item.IdHabitacionNavigation.Numero<br /><small class="text-secondary">@item.IdHabitacionNavigation.IdTipoHabitacionNavigation.Nombre</small></td><td>@item.FechaIngreso.ToString("dd/MM/yyyy")</td><td>@item.FechaSalida.ToString("dd/MM/yyyy")</td><td><span class="badge @claseEstado">@item.Estado</span></td><td>S/ @total.ToString("N2")</td><td class="small">@(string.IsNullOrWhiteSpace(item.Observaciones) ? "—" : item.Observaciones)</td><td class="text-end">@if (item.Estado is "Pendiente" or "Confirmada") { <form asp-action="Cancelar" method="post" class="d-inline"><input type="hidden" name="id" value="@item.IdReserva" /><button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Cancelar esta reserva?');">Cancelar</button></form> }</td></tr>
+    }
+    </tbody>
+</table></div>
+@if (!Model.Any()) { <div class="p-4 text-center text-secondary">No hay reservas registradas.</div> }
+</div>
